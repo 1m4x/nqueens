@@ -55,6 +55,32 @@ namespace nqueens
             pm.board[11, 9] = 'q';
             pm.board[11, 10] = 'q';
             pm.board[11, 11] = 'q';
+
+            pm.board[0, 0] = 'q';
+            pm.board[1, 0] = 'q';
+            pm.board[2, 0] = 'q';
+            pm.board[3, 0] = 'q';
+            pm.board[4, 0] = 'q';
+            pm.board[5, 0] = 'q';
+            pm.board[6, 0] = 'q';
+            pm.board[7, 0] = 'q';
+            pm.board[8, 0] = 'q';
+            pm.board[9, 0] = 'q';
+            pm.board[10, 0] = 'q';
+            pm.board[11, 0] = 'q';
+
+            pm.board[0, 11] = 'q';
+            pm.board[1, 11] = 'q';
+            pm.board[2, 11] = 'q';
+            pm.board[3, 11] = 'q';
+            pm.board[4, 11] = 'q';
+            pm.board[5, 11] = 'q';
+            pm.board[6, 11] = 'q';
+            pm.board[7, 11] = 'q';
+            pm.board[8, 11] = 'q';
+            pm.board[9, 11] = 'q';
+            pm.board[10, 11] = 'q';
+            pm.board[11, 11] = 'q';
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
@@ -83,7 +109,10 @@ namespace nqueens
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
-            Solver.Check(pm, 10, 5);
+            for (int i = 0; i < 8; i++)
+            {
+                Solver.Check(pm, 5, 10);
+            }
             Invalidate();
         }
     }

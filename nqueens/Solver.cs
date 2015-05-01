@@ -64,7 +64,7 @@ namespace nqueens
                 }
             }
 
-            for (int i = 0; i < (aPm.size - 1) - x && i <= y; i++) // Check towards top right
+            for (int i = 0; i <= (aPm.size - 1) - x && i <= y; i++) // Check towards top right
             {
                 if (aPm.board[x + i, y - i] == 'q')
                 {
