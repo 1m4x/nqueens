@@ -83,7 +83,7 @@ namespace nqueens
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
-            Solver.Check(pm, 5, 5);
+            Solver.Check(pm, 10, 5);
             Invalidate();
         }
     }

@@ -7,3 +7,12 @@ C:\Users\1m4x\Desktop\Project 2\nqueens\nqueens\bin\Debug\nqueens.exe
 C:\Users\1m4x\Desktop\Project 2\nqueens\nqueens\bin\Debug\nqueens.pdb
 C:\Users\1m4x\Desktop\Project 2\nqueens\nqueens\obj\Debug\nqueens.exe
 C:\Users\1m4x\Desktop\Project 2\nqueens\nqueens\obj\Debug\nqueens.pdb
+C:\Users\admin\Documents\GitHub\nqueens\nqueens\bin\Debug\nqueens.exe.config
+C:\Users\admin\Documents\GitHub\nqueens\nqueens\obj\Debug\nqueens.exe
+C:\Users\admin\Documents\GitHub\nqueens\nqueens\obj\Debug\nqueens.pdb
+C:\Users\admin\Documents\GitHub\nqueens\nqueens\bin\Debug\nqueens.exe
+C:\Users\admin\Documents\GitHub\nqueens\nqueens\bin\Debug\nqueens.pdb
+C:\Users\admin\Documents\GitHub\nqueens\nqueens\obj\Debug\nqueens.csprojResolveAssemblyReference.cache
+C:\Users\admin\Documents\GitHub\nqueens\nqueens\obj\Debug\nqueens.Form1.resources
+C:\Users\admin\Documents\GitHub\nqueens\nqueens\obj\Debug\nqueens.Properties.Resources.resources
+C:\Users\admin\Documents\GitHub\nqueens\nqueens\obj\Debug\nqueens.csproj.GenerateResource.Cache
