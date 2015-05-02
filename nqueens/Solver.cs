@@ -28,11 +28,9 @@ namespace nqueens
         public static void Solve(PieceMap aPm)
         {
             Stack<Frame> ReturnPoints = new Stack<Frame>();
-            int yToStart = 0;
-            int xToStart = 0;
-            for (int i = xToStart; i < aPm.size; i++)
+            for (int i = 0; i < aPm.size; i++)
             {
-                for (int j = yToStart; j < aPm.size; j++)
+                for (int j = 0; j < aPm.size; j++)
                 {
                     if (Check(aPm, i, j))
                     {
@@ -40,13 +38,14 @@ namespace nqueens
                         ReturnPoints.Push(new Frame(i, j));
                         break;
                     }
-                }
-                if (ReturnPoints.Count < i) // If we reached end of coloumn without puting piece
-                {
-                    Take(aPm, ReturnPoints.Peek().x, ReturnPoints.Peek().y);
-                    j = ReturnPoints.Peek().y;
-                    ReturnPoints.Pop();
-                }           
+                    if (j == aPm.size - 1 && ReturnPoints.Count < i + 1)
+                    {
+                        Take(aPm, ReturnPoints.Peek().x, ReturnPoints.Peek().y);
+                        i = ReturnPoints.Peek().x;
+                        j = ReturnPoints.Peek().y;
+                        ReturnPoints.Pop();
+                    }
+                }     
             }
         }
         public static bool Check(PieceMap aPm, int x, int y)

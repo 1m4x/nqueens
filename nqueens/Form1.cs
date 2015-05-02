@@ -25,8 +25,8 @@ namespace nqueens
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            cb = new ChessBoard(6);
-            pm = new PieceMap(6);
+            cb = new ChessBoard(12);
+            pm = new PieceMap(12);
             black = Image.FromFile("black.png");
             white = Image.FromFile("white.png");
             piece = Image.FromFile("piece.png");
@@ -34,7 +34,6 @@ namespace nqueens
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            
             for (int i = 0; i < cb.size; i++) //Drawing ChessBoard
             {
                 for (int j = 0; j < cb.size; j++)
