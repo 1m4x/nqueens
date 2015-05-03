@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing;
 namespace nqueens
 {
     public struct Frame
@@ -17,6 +18,8 @@ namespace nqueens
     }
     class Solver
     {
+        static Stack<Frame> ReturnPoints = new Stack<Frame>();
+        static Stack<char[,]> solutions = new Stack<char[,]>();
         public static void Put(PieceMap aPm, int x, int y)
         {
             aPm.board[x, y] = 'q';
@@ -25,9 +28,14 @@ namespace nqueens
         {
             aPm.board[x, y] = '*';
         }
-        public static void Solve(PieceMap aPm)
+        public static void LoadPrev(PieceMap aPm)
         {
-            Stack<Frame> ReturnPoints = new Stack<Frame>();
+            aPm.board = solutions.Peek();
+            solutions.Pop();
+        }
+
+        public static void Solve(PieceMap aPm, ListBox lb)
+        {
             for (int i = 0; i < aPm.size; i++)
             {
                 for (int j = 0; j < aPm.size; j++)
@@ -36,16 +44,29 @@ namespace nqueens
                     {
                         Put(aPm, i, j);
                         ReturnPoints.Push(new Frame(i, j));
-                        break;
+                        return;
+                        //break;
                     }
-                    if (j == aPm.size - 1 && ReturnPoints.Count < i + 1)
+                    if (j == aPm.size - 1 && ReturnPoints.Count < i + 1)//went through and didnt find place
                     {
-                        Take(aPm, ReturnPoints.Peek().x, ReturnPoints.Peek().y);
-                        i = ReturnPoints.Peek().x;
-                        j = ReturnPoints.Peek().y;
-                        ReturnPoints.Pop();
+                        if (ReturnPoints.Peek().y == aPm.size-1)
+                        {
+                            Take(aPm, ReturnPoints.Peek().x, ReturnPoints.Peek().y);
+                            ReturnPoints.Pop();
+                            i = ReturnPoints.Peek().x;
+                            j = ReturnPoints.Peek().y;
+                        }
+                            Take(aPm, ReturnPoints.Peek().x, ReturnPoints.Peek().y);
+                            i = ReturnPoints.Peek().x;
+                            j = ReturnPoints.Peek().y;//+ 1; //if out of bounds step back again
+                            ReturnPoints.Pop();
                     }
-                }     
+                    if (ReturnPoints.Count + 1 == aPm.size)
+                    {
+                        solutions.Push(aPm.board);
+                        lb.Items.Add("Solution " + solutions.Count);
+                    }
+                }
             }
         }
         public static bool Check(PieceMap aPm, int x, int y)

@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Drawing;
 
 namespace nqueens
 {
@@ -25,8 +24,8 @@ namespace nqueens
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            cb = new ChessBoard(12);
-            pm = new PieceMap(12);
+            cb = new ChessBoard(8);
+            pm = new PieceMap(8);
             black = Image.FromFile("black.png");
             white = Image.FromFile("white.png");
             piece = Image.FromFile("piece.png");
@@ -57,13 +56,19 @@ namespace nqueens
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
-            Solver.Solve(pm);
+            //Solver.Solve(pm, listBox1);
             //Invalidate();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            Solver.Solve(pm, listBox1);
+            System.Threading.Thread.Sleep(50);
             Invalidate();
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
         }
     }
 }
