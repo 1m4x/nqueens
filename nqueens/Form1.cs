@@ -17,6 +17,7 @@ namespace nqueens
         Image black;
         Image white;
         Image piece;
+        int size=4;
         public Form1()
         {
             InitializeComponent();
@@ -24,11 +25,12 @@ namespace nqueens
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            cb = new ChessBoard(8);
-            pm = new PieceMap(8);
+            cb = new ChessBoard(size);
+            pm = new PieceMap(size);
             black = Image.FromFile("black.png");
             white = Image.FromFile("white.png");
             piece = Image.FromFile("piece.png");
+            this.ClientSize = new Size(50 * size + 160, 50 * size);
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
@@ -63,12 +65,44 @@ namespace nqueens
         private void timer1_Tick(object sender, EventArgs e)
         {
             Solver.Solve(pm, listBox1);
-            System.Threading.Thread.Sleep(50);
+            System.Threading.Thread.Sleep(trackBar1.Value);
             Invalidate();
+            if (Solver.returnPoints.Count == pm.size)
+            {
+                timer1.Enabled = false;
+            }
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            size = (int)numericUpDown1.Value;
+            cb = new ChessBoard(size);
+            pm = new PieceMap(size);
+            this.ClientSize = new Size(50 * size + 160, 50 * size);
+            Invalidate();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (!timer1.Enabled)
+            {
+                timer1.Enabled = true;
+            }
+            else timer1.Enabled = false;
         }
     }
 }

@@ -18,7 +18,7 @@ namespace nqueens
     }
     class Solver
     {
-        static Stack<Frame> ReturnPoints = new Stack<Frame>();
+        public static Stack<Frame> returnPoints = new Stack<Frame>();
         static Stack<char[,]> solutions = new Stack<char[,]>();
         public static void Put(PieceMap aPm, int x, int y)
         {
@@ -43,28 +43,28 @@ namespace nqueens
                     if (Check(aPm, i, j))
                     {
                         Put(aPm, i, j);
-                        ReturnPoints.Push(new Frame(i, j));
+                        returnPoints.Push(new Frame(i, j));
+                        if (returnPoints.Count == aPm.size)//check if we have solution
+                        {
+                            solutions.Push(aPm.board);
+                            lb.Items.Add("Solution " + solutions.Count);
+                        }
                         return;
                         //break;
                     }
-                    if (j == aPm.size - 1 && ReturnPoints.Count < i + 1)//went through and didnt find place
+                    if (j == aPm.size - 1 && returnPoints.Count < i + 1)//went through and didnt find place
                     {
-                        if (ReturnPoints.Peek().y == aPm.size-1)
+                        if (returnPoints.Peek().y == aPm.size-1)
                         {
-                            Take(aPm, ReturnPoints.Peek().x, ReturnPoints.Peek().y);
-                            ReturnPoints.Pop();
-                            i = ReturnPoints.Peek().x;
-                            j = ReturnPoints.Peek().y;
+                            Take(aPm, returnPoints.Peek().x, returnPoints.Peek().y);
+                            returnPoints.Pop();
+                            i = returnPoints.Peek().x;
+                            j = returnPoints.Peek().y;
                         }
-                            Take(aPm, ReturnPoints.Peek().x, ReturnPoints.Peek().y);
-                            i = ReturnPoints.Peek().x;
-                            j = ReturnPoints.Peek().y;//+ 1; //if out of bounds step back again
-                            ReturnPoints.Pop();
-                    }
-                    if (ReturnPoints.Count + 1 == aPm.size)
-                    {
-                        solutions.Push(aPm.board);
-                        lb.Items.Add("Solution " + solutions.Count);
+                            Take(aPm, returnPoints.Peek().x, returnPoints.Peek().y);
+                            i = returnPoints.Peek().x;
+                            j = returnPoints.Peek().y;//+ 1; //if out of bounds step back again
+                            returnPoints.Pop();
                     }
                 }
             }
