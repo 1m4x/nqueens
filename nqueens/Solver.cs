@@ -88,7 +88,7 @@ namespace nqueens
                         j = returnPoints.Peek().y;
                         returnPoints.Pop();
                     }
-                    if (isSolved(aPm))
+                    if (isSolved(aPm)) //try to find more solutions
                     {
                         if (returnPoints.Peek().y == aPm.size - 1) // IF NO PLACE TO MOVE WE BACKTRACK!1
                         {
