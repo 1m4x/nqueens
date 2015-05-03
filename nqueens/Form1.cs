@@ -31,6 +31,7 @@ namespace nqueens
             white = Image.FromFile("white.png");
             piece = Image.FromFile("piece.png");
             this.ClientSize = new Size(50 * size + 160, 50 * size);
+            Solver.timerControl = timer1;
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
@@ -58,8 +59,6 @@ namespace nqueens
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
-            //Solver.Solve(pm, listBox1);
-            //Invalidate();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -67,10 +66,10 @@ namespace nqueens
             Solver.Solve(pm, listBox1);
             System.Threading.Thread.Sleep(trackBar1.Value);
             Invalidate();
-            if (Solver.returnPoints.Count == pm.size)
-            {
-                timer1.Enabled = false;
-            }
+            //if (Solver.returnPoints.Count == pm.size)
+            //{
+            //    timer1.Enabled = false;
+            //}
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -79,7 +78,8 @@ namespace nqueens
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            pm.board = Solver.solutions.ElementAt(listBox1.SelectedIndex);
+            Invalidate();
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)

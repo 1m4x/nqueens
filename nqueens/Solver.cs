@@ -19,7 +19,8 @@ namespace nqueens
     class Solver
     {
         public static Stack<Frame> returnPoints = new Stack<Frame>();
-        static Stack<char[,]> solutions = new Stack<char[,]>();
+        public static Stack<char[,]> solutions = new Stack<char[,]>();
+        public static Timer timerControl;
         public static void Put(PieceMap aPm, int x, int y)
         {
             aPm.board[x, y] = 'q';
@@ -33,7 +34,14 @@ namespace nqueens
             aPm.board = solutions.Peek();
             solutions.Pop();
         }
-
+        public static bool isSolved(PieceMap aPm)
+        {
+            if (returnPoints.Count == aPm.size)
+            {
+                return true;
+            }
+            else return false;
+        }
         public static void Solve(PieceMap aPm, ListBox lb)
         {
             for (int i = 0; i < aPm.size; i++)
@@ -44,9 +52,17 @@ namespace nqueens
                     {
                         Put(aPm, i, j);
                         returnPoints.Push(new Frame(i, j));
-                        if (returnPoints.Count == aPm.size)//check if we have solution
+                        if (isSolved(aPm))//check if we have solution
                         {
-                            solutions.Push(aPm.board);
+                            
+                            solutions.Push(new char[aPm.size, aPm.size]); // "Who expected" that c# creates shallow copy of array instead of deep
+                            for (int k = 0; k < aPm.size; k++)
+                            {
+                                for (int l = 0; l < aPm.size; l++)
+                                {
+                                    solutions.Peek()[k, l] = aPm.board[k, l];
+                                }   
+                            }
                             lb.Items.Add("Solution " + solutions.Count);
                         }
                         return;
@@ -54,17 +70,37 @@ namespace nqueens
                     }
                     if (j == aPm.size - 1 && returnPoints.Count < i + 1)//went through and didnt find place
                     {
-                        if (returnPoints.Peek().y == aPm.size-1)
+                        if (returnPoints.Peek().y == aPm.size-1) // IF NO PLACE TO MOVE WE BACKTRACK!1
+                        {
+                            if (aPm.board[0,aPm.size-1] == 'q') // if we have no place to move and queen is on last row of 0 coloumn
+                            {
+                                timerControl.Enabled = false;
+                                MessageBox.Show("No more solutions available");
+                                return;
+                            }
+                            Take(aPm, returnPoints.Peek().x, returnPoints.Peek().y);
+                            returnPoints.Pop();
+                            i = returnPoints.Peek().x;
+                            j = returnPoints.Peek().y;
+                        }
+                        Take(aPm, returnPoints.Peek().x, returnPoints.Peek().y); 
+                        i = returnPoints.Peek().x;
+                        j = returnPoints.Peek().y;
+                        returnPoints.Pop();
+                    }
+                    if (isSolved(aPm))
+                    {
+                        if (returnPoints.Peek().y == aPm.size - 1) // IF NO PLACE TO MOVE WE BACKTRACK!1
                         {
                             Take(aPm, returnPoints.Peek().x, returnPoints.Peek().y);
                             returnPoints.Pop();
                             i = returnPoints.Peek().x;
                             j = returnPoints.Peek().y;
                         }
-                            Take(aPm, returnPoints.Peek().x, returnPoints.Peek().y);
-                            i = returnPoints.Peek().x;
-                            j = returnPoints.Peek().y;//+ 1; //if out of bounds step back again
-                            returnPoints.Pop();
+                        Take(aPm, returnPoints.Peek().x, returnPoints.Peek().y);
+                        i = returnPoints.Peek().x;
+                        j = returnPoints.Peek().y;
+                        returnPoints.Pop();
                     }
                 }
             }
